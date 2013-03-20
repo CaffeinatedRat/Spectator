@@ -1,0 +1,5 @@
+name: Spectator
+main: com.caffeinatedrat.Spectator.Spectator
+authors: ['CaffeinatedRat']
+version: 0.0.1
+description: A plugin that will communicate through WebSocketServices to provide a server description to a webgl client.
