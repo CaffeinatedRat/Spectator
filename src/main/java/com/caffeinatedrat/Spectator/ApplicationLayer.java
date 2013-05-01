@@ -75,11 +75,13 @@ public class ApplicationLayer implements IApplicationLayer {
                 //For now, have the player send his her location as the camera.
                 for(Player player : players) {
                     
-                    if (player.getName().equalsIgnoreCase("caffeinatedrat")) {
+                    //if (player.getName().equalsIgnoreCase("caffeinatedrat")) {
                         
+                        //Use the first player's position...yeah...this is only for testing, a bad way to handle this.
                         positionVector = player.getLocation().toVector();
+                        break;
                         
-                    }
+                    //}
                     
                 }
 
