@@ -1,0 +1,267 @@
+/*
+------------------------------------
+Document Classes
+------------------------------------
+*/
+
+body
+{
+    /*background: url('../media/offline.jpg') no-repeat 0% 0% #000000;*/
+    background-color: #000000;
+    font-size: .75em;
+    font-family: Verdana, Helvetica, Sans-Serif;
+    color: #696969;
+    margin: 0px;
+}
+
+div.inline
+{
+    display: inline-block;
+}
+
+div.buffer
+{
+    margin: 15px 0px;
+}
+
+/*
+------------------------------------
+Page Classes
+------------------------------------
+*/
+
+.titlebar
+{
+    margin: 10px 15px;
+    height: 75px;
+}
+
+.title
+{
+    color: #fff;
+    float: left;
+}
+
+.wrapper
+{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    width: 910px;
+    height: 650px;
+    background-color: rgba(125, 125, 125, 0.55);
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 15px;
+    color: #fff;
+    text-align: center;
+}
+
+#tabs
+{
+    height: 640px;
+    background: rgba(255, 255, 255, 0.65) 50% 50% repeat-x !important;
+}
+
+.tabContainer
+{
+    height: 580px;
+}
+
+.scrollContainer
+{
+    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.container
+{
+    height: 550px;
+    text-align: left;
+    padding: 15px;
+}
+
+.container > div
+{
+    padding: 5px;
+}
+
+#footer
+{
+    margin: 15px;
+    height: 4em;
+    text-align: center;
+    color: #fff;
+}
+
+#footer a, #footer a:hover, #footer a:visited
+{
+    text-decoration: none;
+    color: #fff;
+}
+
+.clear
+{
+    clear: both;
+}
+
+/*
+------------------------------------
+Status Classes
+------------------------------------
+*/
+
+.serverStatus
+{
+    float: right;
+}
+
+.offline
+{
+    color: red;
+}
+
+.online
+{
+    color: green;
+}
+
+/*
+------------------------------------
+Images Classes
+------------------------------------
+*/
+
+.imgOffline
+{
+    background: url('../media/offline.jpg') no-repeat 0% 0% #000000;
+}
+
+.imgDay
+{
+    background: url('../media/day.jpg') no-repeat 0% 0% #000000;
+}
+
+.imgNight
+{
+    background: url('../media/night.jpg') no-repeat 0% 0% #000000;
+}
+
+
+/*
+------------------------------------
+Tile Classes
+------------------------------------
+*/
+
+.tiles
+{
+    background: url('../media/tiles.png') no-repeat 0px 0px transparent;
+    height: 16px;
+    width: 16px;
+}
+
+.mojangTile
+{
+    background-position: -32px -32px;
+    height: 16px;
+    width: 16px;
+}
+
+/*
+------------------------------------
+Offline Classes
+------------------------------------
+*/
+
+#websocketNotSupported
+{
+    height: 630px;
+    text-align: left;
+}
+
+#offlineDiv
+{
+    height: 630px;
+}
+
+/*
+------------------------------------
+Profile Classes
+------------------------------------
+*/
+
+#webGLNotSupported
+{
+    float: left;
+    position: relative;
+    width: 540px;
+    height: 540px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+#webGLNotSupported h2
+{
+    color: black;
+    margin-top: 250px;
+    background-color: rgba(255, 255, 255, 0.65);
+}
+
+/*
+------------------------------------
+Demo specific Classes
+------------------------------------
+*/
+
+h1.welcome
+{
+    color: #fff;
+}
+
+.welcome
+{
+    font-size: 1.0em;
+    color: #000;
+}
+
+.port
+{
+}
+
+/*
+------------------------------------
+Demo specific Classes
+------------------------------------
+*/
+
+#canvasWrapper
+{
+    position: relative;
+    width: 640px;
+    height: 400px;
+    margin: auto;
+}
+
+#spectator
+{
+    width: 640px;
+    height: 400px;
+}
+
+#biggerCanvasWrapper
+{
+    position: relative;
+    width: 900px;
+    height: 500px;
+    margin: auto;
+}
+
+#biggerSpectator
+{
+    width: 900px;
+    height: 500px;
+    text-align: left !important;
+}

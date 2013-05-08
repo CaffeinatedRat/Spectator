@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link type="text/css" rel="stylesheet" href="css/minecraft.css" />
+    <title>Caff's Development Sandbox -- Spectator</title>
+</head>
+<body class="imgOffline">
+    <div class="titlebar">
+        <div class="title">
+            <h1>
+                Caff's Development Sandbox -- Spectator
+            </h1>
+        </div>
+        <div class="serverStatus">
+            <h1>
+                <span id="serverStatus" class="offline">Checking... </span>
+            </h1>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div id="websocketNotSupported" style="display: none;">
+            <h2>
+                Websockets are not supported by this browser.
+            </h2>
+            <p>
+                Please try another browser. The following browsers support WebSockets.
+            </p>
+            <ul>
+                <li>Firefox 11+ </li>
+                <li>Chrome 16+ </li>
+                <li>Safari 6+ </li>
+                <li>IE 10+ </li>
+            </ul>
+            <p>
+                In the meantime, you can visit the plugin's gallery at <a href="http://dev.bukkit.org/server-mods/websocketservices/images/">
+                    dev.bukkit.org</a>
+            </p>
+        </div>
+        <div id="offlineDiv" style="display: none;">
+            <h2>
+                The server cannot be found. You must be lost and it looks like this is the end.
+            </h2>
+            <p>
+                NOTE: The server may be down or is undergoing maintenance, please be patient.
+            </p>
+            <p>
+                In the meantime, you can visit the plugin's gallery at <a href="http://dev.bukkit.org/server-mods/websocketservices/images/">
+                    dev.bukkit.org</a>
+            </p>
+        </div>
+        <div id="websocketSupported" style="display: none;">
+            <div class="spectatorDescription" style="text-align: left;">
+                <h4>
+                    This is an experimental plug-in that is still under-development.</h4>
+                If and when a stable build is created, this plug-in will allow you to look into
+                your server, as if it were a fixed camera.
+                <br />
+                Please note the following:
+                <ul>
+                    <li style="margin: 5px;">You must have a browser that supports WebGL in order to view
+                        the screen below. <em>For example: Chrome or Firefox.</em> </li>
+                    <li style="margin: 5px;"><strong>I would strongly recommend running this in chrome,
+                        as it'll give you better performance. </strong></li>
+                    <li style="margin: 5px;"><strong>If you start suffering from severe lag, and are running
+                        chrome, you can stop the issue by closing the tab. </strong></li>
+                </ul>
+            </div>
+            <div id="spectatorWrapper">
+                <button id="startSpectator" class="button">
+                    Start</button>
+                <div id="loadingSpectator" style="margin: 50px; display: none;">
+                    <h2>
+                        LoAdInG...</h2>
+                </div>
+                <div id="biggerCanvasWrapper">
+                    <canvas id="biggerSpectator" style="border: 1px solid black; display: none;">
+						</canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="buffer">
+            <div class="inline">
+                Site Design by <a href="http://www.caffeinatedrat.com">CaffeinatedRat</a>
+            </div>
+        </div>
+        <div class="buffer">
+            <div class="inline">
+                Minecraft Copyright (c) 2012
+            </div>
+            <a href="http://www.mojang.com/">
+                <div class="inline" style="vertical-align: top;">
+                    <div title="Mojang" class="tiles mojangTile">
+                    </div>
+                </div>
+                <div class="inline">
+                    Mojang
+                </div>
+            </a>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.9.0.custom.min.js"></script>
+    <script type="text/javascript" src="js/three.min.js"></script>
+    <script type="text/javascript" src="js/TrackballControls.js"></script>
+    <script type="text/javascript" src="js/websocketservices.min.js"></script>
+    <script type="text/javascript" src="js/stats.min.js"></script>
+    <!-- Spectator crap-->
+    <script type="text/javascript" src="js/spectator/core.js"></script>
+    <script type="text/javascript" src="js/spectator/spectator.js"></script>
+    <script type="text/javascript" src="js/spectator/block.js"></script>
+    <script type="text/javascript" src="js/spectator/blockdefs.js"></script>
+    <script>
+
+        //Globals...
+        var wss = null;
+        var spectator = null;
+
+        function pingConnected() {
+
+            $('#serverStatus').text('ONLINE');
+            $('#serverStatus').addClass('online');
+            $('#serverStatus').removeClass('offline');
+
+            $('#websocketSupported').show();
+            $('#offlineDiv').hide();
+
+        }
+
+        function pingDisconnected() {
+
+            $("body").addClass("imgOffline").removeClass("imgDay").removeClass("imgNight");
+
+            $('#serverStatus').text('OFFLINE');
+            $('#serverStatus').addClass('offline');
+            $('#serverStatus').removeClass('online');
+
+            $('#websocketSupported').hide();
+            $('#offlineDiv').show();
+
+        }
+
+        function pingServerTime(serverTime) {
+
+            if (serverTime % 23000 >= 13000) {
+
+                $("body").addClass("imgNight").removeClass("imgOffline").removeClass("imgDay");
+
+            }
+            else {
+
+                $("body").addClass("imgDay").removeClass("imgOffline").removeClass("imgNight");
+
+            }
+
+        }
+
+        function Init() {
+
+            //Apply thet JQuery UI look & feel
+            $('.button').button();
+
+            //Instantiate our WebSocketServer object.
+            //If websockets are not supported then an exception will be thrown.
+            //Let the exception be caught at the top level.
+            wss = new CaffeinatedRat.Minecraft.WebSocketServices({
+                websocketAddress: 'ws://<Your IP Address here>:25564'
+            });
+
+            //If we made it this far then everything is going well so far.  Attempt to ping the server.
+            wss.ping({
+                connectedCallback: pingConnected,
+                disconnectedCallback: pingDisconnected,
+                serverTimeCallback: pingServerTime
+            });
+
+            spectator = new CaffeinatedRat.Minecraft.Spectator.Engine({
+                canvas: document.getElementById('biggerSpectator'),
+                image: '/media/terrain.png',
+                fancy: true,
+                webSocketServices: wss
+            });
+
+        }
+
+        $(document).ready(function () {
+
+            try {
+
+                Init();
+
+                $('#startSpectator').click(function () {
+
+                    $('#startSpectator').hide();
+                    $('#loadingSpectator').show();
+                    //spectator.start({ updateTime: 5000 });
+                    spectator.start();
+
+                });
+
+            }
+            catch (exception) {
+
+                console.log(exception.toString());
+
+                //We're assuming the exception was caused by WebSockets not being supported.
+                //Most of the code has been tested to confirm that it is a high likely hood that this issue is a WebSockets one.
+                $('#websocketNotSupported').show();
+                $('#offlineDiv').hide();
+
+            }
+        });
+		
+    </script>
+</body>
+</html>
