@@ -35,7 +35,7 @@ public class Globals {
     // ----------------------------------------------
     // Constants
     // ----------------------------------------------
-    public static final String PLUGIN_FOLDER = "plugins/SpectatorGL";
+    public static final String PLUGIN_FOLDER = "plugins/Spectator";
     
     // ----------------------------------------------
     // Global Vars.

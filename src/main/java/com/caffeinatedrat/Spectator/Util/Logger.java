@@ -44,20 +44,20 @@ public class Logger {
     // ----------------------------------------------
     
     public static void severe(String msg) {
-        logger.log(Level.SEVERE, MessageFormat.format("[SpectatorGL] {0}", msg));
+        logger.log(Level.SEVERE, MessageFormat.format("[Spectator] {0}", msg));
     }
     
     public static void warning(String msg) {
-        logger.log(Level.WARNING, MessageFormat.format("[SpectatorGL] {0}", msg));
+        logger.log(Level.WARNING, MessageFormat.format("[Spectator] {0}", msg));
     }
     
     public static void info(String msg) {
-        logger.log(Level.INFO, MessageFormat.format("[SpectatorGL] {0}", msg));
+        logger.log(Level.INFO, MessageFormat.format("[Spectator] {0}", msg));
     }
     
     public static void debug(String msg) {
         if (Globals.isDebug()) {
-            logger.log(Level.INFO, MessageFormat.format("[SpectatorGL] {0}", msg));
+            logger.log(Level.INFO, MessageFormat.format("[Spectator] {0}", msg));
         }
     }
     
