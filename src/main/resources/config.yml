@@ -4,11 +4,13 @@ spectator:
   logging: 0
   #Determines if the connection should be kept alive.
   keepConnectionAlive: false
-  camera:
-    x: 0
-    y: 0
-    z: 0
-    range:
-      x: 4
-      y: 4
-      z: 4
+  cameras:
+    camera1:
+      position:
+        x: 0
+        y: 0
+        z: 0
+      range:
+        x: 4
+        y: 4
+        z: 4
