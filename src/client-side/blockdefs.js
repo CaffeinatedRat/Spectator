@@ -37,34 +37,34 @@ var blockdefs = [];
 blockdefs = [
 //Stone
 	{
-	sides: { 
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(2, 16)
+	sides: {
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(2, 16)
 	}
 },
 //Grass
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(4, 16),
-		'top': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(9, 14),
-		'bottom': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(3, 16)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(4, 16),
+	    'top': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(9, 14, 0x00ff00),
+	    'bottom': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(3, 16)
 	}
 },
 //Dirt
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(3, 16)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(3, 16)
 	}
 },
 //Cobble
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 15)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 15)
 	}
 },
 //Wood
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(5, 16)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(5, 16)
 	}
 },
 //Sapling
@@ -74,14 +74,14 @@ blockdefs = [
 //Bedrock
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(2, 15)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(2, 15)
 	}
 },
 //Water
 	{
 
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(16, 3)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(16, 3)
 	},
 	transparent: true
 },
@@ -90,7 +90,7 @@ blockdefs = [
 	{
 
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(16, 3)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(16, 3)
 	},
 	transparent: true
 },
@@ -98,193 +98,194 @@ blockdefs = [
 	{
 
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(16, 1)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(16, 1)
 	}
 },
 //Stationary Lava
 	{
 
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(16, 1)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(16, 1)
 	}
 },
 //Sand
 	{
 
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(3, 15)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(3, 15)
 	}
 },
 //Gravel
 	{
 
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(4, 15)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(4, 15)
 	}
 },
 //Gold Ore
 	{
 
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 14)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 14)
 	}
 },
 //Iron Ore
 	{
 
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(2, 14)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(2, 14)
 	}
 },
 //Coal Ore
 	{
 
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(3, 14)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(3, 14)
 	}
 },
 //Log
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(5, 15),
-		'top': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(6, 15)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(5, 15),
+	    'top': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(6, 15)
 	}
 },
 //Leaves
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(5, 13)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(5, 13, 0x00ff00)
 	},
 	transparent: true,
 	opaquesides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(6, 13)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(6, 13, 0x00ff00)
 	}
 },
 //Sponge
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 13)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 13)
 	}
 },
 //Glass
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(2, 13)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(2, 13)
 	},
 	transparent: true
 },
 //Lapis Ore
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 6)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 6)
 	}
 },
 //Lapis Block
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 7)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 7)
 	}
 },
 //DISPENSER
 	{
 	sides: {
-		'front': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(15, 14),
-		'leftside': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(14, 14),
-		'rightside': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(14, 14),
-		'back': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(14, 14),
-		'top': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(15, 13),
-		'bottom': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(15, 13)
+	    'front': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(15, 14),
+	    'leftside': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(14, 14),
+	    'rightside': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(14, 14),
+	    'back': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(14, 14),
+	    'top': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(15, 13),
+	    'bottom': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(15, 13)
 	}
 },
 //SANDSTONE
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 4),
-		'top': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 5),
-		'bottom': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 3)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 4),
+	    'top': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 5),
+	    'bottom': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 3)
 	}
 },
 //NOTE_BLOCK
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(3, 13)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(3, 13)
 	}
 },
 //BED_BLOCK
 	{
 	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(7, 8)
+	    'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(7, 8)
 	}
 }
 
 ];
 
 //Long grass
-blockdefs[30] = 
+blockdefs[30] =
 {
-	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(8, 14)
-	},
-	transparent: true
+    sides: {
+        'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(8, 14, 0x00ff00)
+    },
+    transparent: true
 }
 
 //OBSIDIAN
-blockdefs[48] = 
+blockdefs[48] =
 {
-	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(8, 5)
-	},
+    sides: {
+        'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(8, 5)
+    }
 }
 
 //Torch
-blockdefs[49] = 
+blockdefs[49] =
 {
-	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 11)
-	},
-	transparent: true
+    sides: {
+        'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 11)
+    },
+    transparent: true,
+    occludes: false
 }
 
 
 //Smooth Stone
-blockdefs[97] = 
+blockdefs[97] =
 {
-	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(6, 3)
-	}
+    sides: {
+        'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(6, 3)
+    }
 }
 
 //Iron Fence
 blockdefs[100] =
 {
-	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(6, 11)
-	},
-	transparent: true
+    sides: {
+        'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(6, 11)
+    },
+    transparent: true
 }
 
 
 //Nether brick
 blockdefs[111] =
 {
-	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 2)
-	}
+    sides: {
+        'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(1, 2)
+    }
 }
 
 //Thin glass
 blockdefs[101] =
 {
-	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(2, 13),
-	},
-	transparent: true
+    sides: {
+        'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(2, 13)
+    },
+    transparent: true
 }
 
 //ENDER_STONE
 blockdefs[120] =
 {
-	sides: {
-		'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(16, 6),
-	}
+    sides: {
+        'sides': new CaffeinatedRat.Minecraft.Spectator.TextureCoordinates(16, 6)
+    }
 }

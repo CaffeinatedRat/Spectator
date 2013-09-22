@@ -1,4 +1,4 @@
-﻿/**
+﻿/** @license
 * Copyright (c) 2013, Ken Anderson <caffeinatedrat at gmail dot com>
 * All rights reserved.
 * Redistribution and use in source and binary forms, with or without
@@ -26,20 +26,20 @@
 * -----------------------------------------------------------------
 * Required Libraries:
 * 1) Three.js
+* 2) crLib.min.js
 * -----------------------------------------------------------------
 */
 
 //-----------------------------------------------------------------
 // Namespace
 //-----------------------------------------------------------------
-var CaffeinatedRat = CaffeinatedRat || {};
 CaffeinatedRat.Minecraft = CaffeinatedRat.Minecraft || {};
 CaffeinatedRat.Minecraft.Spectator = CaffeinatedRat.Minecraft.Spectator || {};
 
 //-----------------------------------------------------------------
 // Versioning
 //-----------------------------------------------------------------
-CaffeinatedRat.Minecraft.Spectator.VERSION = 1;
+CaffeinatedRat.Minecraft.Spectator.VERSION = new CaffeinatedRat.Version(1, 0, 0);
 
 //-----------------------------------------------------------------
 // Data Types
@@ -48,62 +48,16 @@ CaffeinatedRat.Minecraft.Spectator.VERSION = 1;
 /**
 * @constructor
 */
-//CaffeinatedRat.Minecraft.HashTable = function () {
-
-//	this._length = 0;
-//	this._collection = [];
-
-//}
-
-//CaffeinatedRat.Minecraft.HashTable.prototype.addItem = function (key, value) {
-
-//	this._collection[key] = value;
-//	this._length++;
-
-//}
-
-//CaffeinatedRat.Minecraft.HashTable.prototype.removeItem = function (key) {
-
-//	var idx = this._collection.indexOf(key);
-//	if (idx > 0) {
-
-//		this._collection.splice(idx, 1);
-//		if (this._length > 0) {
-//		
-//			this._length--;
-//		
-//		}
-
-//	}
-
-//}
-
-//CaffeinatedRat.Minecraft.HashTable.prototype.length = function () {
-
-//	return this._length;
-
-//}
-
-//CaffeinatedRat.Minecraft.HashTable.prototype.getItem = function (key) {
-
-//	return this._collection[key];
-
-//}
-
-//CaffeinatedRat.Minecraft.HashTable.prototype.toString = function () {
-
-//	return this._collection.toString();
-
-//}
-
-
-/**
-* @constructor
-*/
-CaffeinatedRat.Minecraft.Spectator.TextureCoordinates = function (u, v) {
+CaffeinatedRat.Minecraft.Spectator.TextureCoordinates = function (u, v, color) {
 
     this._u = u;
     this._v = v;
+
+    if (color !== undefined) {
+
+        this._color = color;
+
+    }
 
 }
 
@@ -114,25 +68,9 @@ CaffeinatedRat.Minecraft.Spectator.TextureCoordinates = function (u, v) {
 /**
 * @constructor
 */
-CaffeinatedRat.Minecraft.Spectator.Exception = function (caller, message) {
-
-    var internalMessage = "CaffeinatedRat.Minecraft.Spectator" + ((caller !== undefined) ? ("." + caller) : "");
-    internalMessage += ": " + message;
-
-    this.toString = function () {
-
-        return internalMessage;
-
-    }
-
-}
-
-/**
-* @constructor
-*/
 CaffeinatedRat.Minecraft.Spectator.InvalidTexture = function (caller) {
 
-    CaffeinatedRat.Minecraft.Spectator.Exception.call(this, caller, "The texture is an invalid texture object.  It must be a THREE.texture object.");
+    CaffeinatedRat.Exception.call(this, 'Minecraft.Spectator.' + caller, "The texture is an invalid texture object.  It must be a THREE.texture object.");
 
 }
 
@@ -141,7 +79,7 @@ CaffeinatedRat.Minecraft.Spectator.InvalidTexture = function (caller) {
 */
 CaffeinatedRat.Minecraft.Spectator.SceneNotDefinedException = function () {
 
-    CaffeinatedRat.Minecraft.Spectator.Exception.call(this, caller, "A scene must be defined for this block.");
+    CaffeinatedRat.Exception.call(this, 'Minecraft.Spectator.' + caller, "A scene must be defined for this block.");
 
 }
 
@@ -150,6 +88,6 @@ CaffeinatedRat.Minecraft.Spectator.SceneNotDefinedException = function () {
 */
 CaffeinatedRat.Minecraft.Spectator.InvalidWebSocketServices = function (caller) {
 
-    CaffeinatedRat.Minecraft.Spectator.Exception.call(this, caller, "An invalid WebSocketServices object was defined, or no WebSocketServices was defined.\r\nA WebSocketService object is required to run this library.");
+    CaffeinatedRat.Exception.call(this, 'Minecraft.Spectator.' + caller, "An invalid WebSocketServices object was defined, or no WebSocketServices was defined.\r\nA WebSocketService object is required to run this library.");
 
 }
