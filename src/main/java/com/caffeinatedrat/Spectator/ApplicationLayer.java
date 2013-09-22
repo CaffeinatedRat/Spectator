@@ -32,10 +32,10 @@ import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 
+import com.caffeinatedrat.SimpleWebSockets.Connection;
 import com.caffeinatedrat.SimpleWebSockets.IApplicationLayer;
-import com.caffeinatedrat.SimpleWebSockets.ResponseWrapper;
+import com.caffeinatedrat.SimpleWebSockets.Session;
 import com.caffeinatedrat.SimpleWebSockets.TextResponse;
 
 public class ApplicationLayer implements IApplicationLayer {
@@ -56,114 +56,123 @@ public class ApplicationLayer implements IApplicationLayer {
     }
     
     @Override
-    public void onTextFrame(String text, ResponseWrapper responseWrapper) {
+    public void onTextFrame(String arguments, Session session) {
 
         //A text-response is what we'll use during the experimental phase, while we'll eventually move to a binary model.
-        responseWrapper.response = new TextResponse();
+        session.response = new TextResponse();
+
+        if (arguments == null) {
+            
+            return;
+            
+        }
         
-        if(text.equalsIgnoreCase("spectator")) {
+        int cameraNumber = 0;
+        org.bukkit.util.Vector positionVector = null;
+        org.bukkit.util.Vector rangeVector = null;
             
-            Hashtable<String, Object> masterCollection = ((TextResponse)responseWrapper.response).getCollection();
-            List<Hashtable<String, Object>> blocks = new ArrayList<Hashtable<String, Object>>();
-            masterCollection.put("blocks", blocks);
+        try
+        {
+            String[] tokens = arguments.split(" ", 2);
             
-            org.bukkit.util.Vector positionVector = null;
-            
-            Player[] players = this.minecraftServer.getOnlinePlayers();
-            if (players.length > 0) {
+            if (tokens.length < 2) {
                 
-                //For now, have the player send his her location as the camera.
-                for(Player player : players) {
-                    
-                    //if (player.getName().equalsIgnoreCase("caffeinatedrat")) {
-                        
-                        //Use the first player's position...yeah...this is only for testing, a bad way to handle this.
-                        positionVector = player.getLocation().toVector();
-                        break;
-                        
-                    //}
-                    
-                }
-
-            }
-            else {
-            
-                positionVector = this.config.getCamera();
+                return;
                 
             }
             
-            org.bukkit.util.Vector rangeVector = this.config.getRange();
-            
-            masterCollection.put("origin", MessageFormat.format("x: {0}, y: {1}, z: {2}", positionVector.getX(), positionVector.getY(), positionVector.getZ()));
-            masterCollection.put("chunkSizeX", rangeVector.getBlockX());
-            masterCollection.put("chunkSizeY", rangeVector.getBlockY());
-            masterCollection.put("chunkSizeZ", rangeVector.getBlockZ());
-            
-            if (positionVector != null) {
-                
-                List<World> worlds = this.minecraftServer.getWorlds();
-                
-                if (worlds.size() > 0) {
+            if (!tokens[0].equalsIgnoreCase("camera")) {
 
-                    World world = worlds.get(0);
+                return;
+
+            }
+            
+            cameraNumber = Integer.parseInt(tokens[1]);
+
+            if( (positionVector = this.config.getCamera(cameraNumber)) == null) {
+                
+                return;
+                
+            }
+        
+            rangeVector = this.config.getRange(cameraNumber);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return;
+        }
+        
+        Hashtable<String, Object> masterCollection = ((TextResponse)session.response).getCollection();
+        List<Hashtable<String, Object>> blocks = new ArrayList<Hashtable<String, Object>>();
+        masterCollection.put("blocks", blocks);
+        
+        masterCollection.put("origin", MessageFormat.format("x: {0}, y: {1}, z: {2}", positionVector.getX(), positionVector.getY(), positionVector.getZ()));
+        masterCollection.put("chunkSizeX", rangeVector.getBlockX());
+        masterCollection.put("chunkSizeY", rangeVector.getBlockY());
+        masterCollection.put("chunkSizeZ", rangeVector.getBlockZ());
+        
+        if (positionVector != null) {
+            
+            List<World> worlds = this.minecraftServer.getWorlds();
+            
+            if (worlds.size() > 0) {
+
+                World world = worlds.get(0);
+                
+                int x = positionVector.getBlockX();
+                int y = positionVector.getBlockY();
+                int z = positionVector.getBlockZ();
+                
+                for (int i = (x - rangeVector.getBlockX()); i <= (x + rangeVector.getBlockX()); i++) {
                     
-                    int x = positionVector.getBlockX();
-                    int y = positionVector.getBlockY();
-                    int z = positionVector.getBlockZ();
+                    for (int j = (y - rangeVector.getBlockY()); j <= (y + rangeVector.getBlockY()); j++) {
                     
-                    for (int i = (x - rangeVector.getBlockX()); i <= (x + rangeVector.getBlockX()); i++) {
+                        for (int k = (z - rangeVector.getBlockZ()); k <= (z + rangeVector.getBlockZ()); k++) {
                         
-                        for (int j = (y - rangeVector.getBlockY()); j <= (y + rangeVector.getBlockY()); j++) {
-                        
-                            for (int k = (z - rangeVector.getBlockZ()); k <= (z + rangeVector.getBlockZ()); k++) {
+                            Block block = world.getBlockAt(i, j, k);
                             
-                                Block block = world.getBlockAt(i, j, k);
-                                
-                                if (block != null) {
+                            if (block != null) {
 
-                                    Hashtable<String, Object> collection = new Hashtable<String, Object>();
-                                    Material material = block.getType();
-                                    
-                                    //Allocate 2^16 for the id when going binary.
-                                    collection.put("type", material.getId());
-                                    
-                                    //Allocate 2^32 for the each axis when going binary.
-                                    collection.put("x", i - positionVector.getBlockX());
-                                    collection.put("y", j - positionVector.getBlockY());
-                                    collection.put("z", k - positionVector.getBlockZ());
-                                    
-                                    //Allocate 2^32 for the environmental data.
-                                    collection.put("humidity", block.getHumidity());
-                                    collection.put("temperature", block.getTemperature());
-                                    
-                                    //Not sure what this does yet...
-                                    collection.put("data", block.getData());
-                                    
-                                    //Convert to a bitstring when going binary...
-                                    collection.put("isLiquid", block.isLiquid());
-                                    collection.put("isTransparent", material.isTransparent());
-                                    collection.put("isOccluding", material.isOccluding());
-                                    collection.put("isOccluding", material.isOccluding());
-                                    
-                                    blocks.add(collection);
-                                }
+                                Hashtable<String, Object> collection = new Hashtable<String, Object>();
+                                Material material = block.getType();
+                                
+                                //Allocate 2^16 for the id when going binary.
+                                collection.put("type", material.getId());
+                                
+                                //Allocate 2^32 for the each axis when going binary.
+                                collection.put("x", i - positionVector.getBlockX());
+                                collection.put("y", j - positionVector.getBlockY());
+                                collection.put("z", k - positionVector.getBlockZ());
+                                
+                                //Allocate 2^32 for the environmental data.
+                                collection.put("humidity", block.getHumidity());
+                                collection.put("temperature", block.getTemperature());
+                                
+                                //Not sure what this does yet...
+                                collection.put("data", block.getData());
+                                
+                                //Convert to a bitstring when going binary...
+                                collection.put("isLiquid", block.isLiquid());
+                                collection.put("isTransparent", material.isTransparent());
+                                collection.put("isOccluding", material.isOccluding());
+                                collection.put("isOccluding", material.isOccluding());
+                                
+                                blocks.add(collection);
                             }
-                            //END OF for (int k = -scaleZ; k < ScaleZ; k++) {...
                         }
-                        //END OF for (int j = -scaleY; j < scaleY; j++) {...
+                        //END OF for (int k = -scaleZ; k < ScaleZ; k++) {...
                     }
-                    //END OF for(int i = -scaleX; i < scaleX; i++) {...
-                    
+                    //END OF for (int j = -scaleY; j < scaleY; j++) {...
                 }
+                //END OF for(int i = -scaleX; i < scaleX; i++) {...
                 
             }
             
         }
-
     }
 
     @Override
-    public void onBinaryFrame(byte[] data, ResponseWrapper responseWrapper) {
+    public void onBinaryFrame(byte[] data, Session session) {
         // TODO Auto-generated method stub
 
     }
@@ -186,4 +195,14 @@ public class ApplicationLayer implements IApplicationLayer {
 
     }
 
+    public void onConnection(Connection connection) {
+        // TODO Auto-generated method stub
+
+    }
+    
+    public void onIdle(Session session) {
+
+        // TODO Auto-generated method stub
+
+    }
 }

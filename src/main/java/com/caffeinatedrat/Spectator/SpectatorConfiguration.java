@@ -27,6 +27,7 @@ package com.caffeinatedrat.Spectator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.MessageFormat;
 
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -49,25 +50,40 @@ public class SpectatorConfiguration extends YamlConfiguration {
         return getBoolean("spectator.keepConnectionAlive", false);
     }
 
-    public Vector getCamera() {
+    public Vector getCamera(int cameraNumber) {
         
-        Vector vector = new Vector();
-        vector.setX(getInt("spectator.camera.x", 0));
-        vector.setY(getInt("spectator.camera.y", 0));
-        vector.setZ(getInt("spectator.camera.z", 0));
+        Object camera = this.get(MessageFormat.format("spectator.cameras.camera{0}", cameraNumber));
         
-        return vector;
+        if (camera != null) {
+
+            Vector vector = new Vector();
+            vector.setX(((org.bukkit.configuration.MemorySection)camera).getInt("position.x", 0));
+            vector.setY(((org.bukkit.configuration.MemorySection)camera).getInt("position.y", 0));
+            vector.setZ(((org.bukkit.configuration.MemorySection)camera).getInt("position.z", 0));
+            return vector;
+
+        }
+        
+        return null;
         
     }
     
-    public Vector getRange() {
+    public Vector getRange(int cameraNumber) {
         
-        Vector vector = new Vector();
-        vector.setX(getInt("spectator.camera.range.x", 4));
-        vector.setY(getInt("spectator.camera.range.y", 4));
-        vector.setZ(getInt("spectator.camera.range.z", 4));
+        Object camera = this.get(MessageFormat.format("spectator.cameras.camera{0}", cameraNumber));
         
-        return vector;
+        
+        if (camera != null) {
+            
+            Vector vector = new Vector();
+            vector.setX(((org.bukkit.configuration.MemorySection)camera).getInt("range.x", 4));
+            vector.setY(((org.bukkit.configuration.MemorySection)camera).getInt("range.y", 4));
+            vector.setZ(((org.bukkit.configuration.MemorySection)camera).getInt("range.z", 4));
+            return vector;
+            
+        }
+        
+        return null;
         
     }
     
