@@ -36,7 +36,8 @@ import org.bukkit.block.Block;
 import com.caffeinatedrat.SimpleWebSockets.Connection;
 import com.caffeinatedrat.SimpleWebSockets.IApplicationLayer;
 import com.caffeinatedrat.SimpleWebSockets.Session;
-import com.caffeinatedrat.SimpleWebSockets.TextResponse;
+import com.caffeinatedrat.SimpleWebSockets.Responses.TextResponse;
+import com.caffeinatedrat.SimpleWebSockets.Payload.*;
 
 public class ApplicationLayer implements IApplicationLayer {
 
@@ -56,11 +57,13 @@ public class ApplicationLayer implements IApplicationLayer {
     }
     
     @Override
-    public void onTextFrame(String arguments, Session session) {
+    public void onTextFrame(TextPayload payload, Session session) {
 
         //A text-response is what we'll use during the experimental phase, while we'll eventually move to a binary model.
         session.response = new TextResponse();
 
+        String arguments = payload.toString();
+        
         if (arguments == null) {
             
             return;
@@ -172,7 +175,7 @@ public class ApplicationLayer implements IApplicationLayer {
     }
 
     @Override
-    public void onBinaryFrame(byte[] data, Session session) {
+    public void onBinaryFrame(Payload payload, Session session) {
         // TODO Auto-generated method stub
 
     }
@@ -184,7 +187,7 @@ public class ApplicationLayer implements IApplicationLayer {
     }
 
     @Override
-    public void onPing(byte[] data) {
+    public void onPing(Payload payload) {
         // TODO Auto-generated method stub
 
     }
